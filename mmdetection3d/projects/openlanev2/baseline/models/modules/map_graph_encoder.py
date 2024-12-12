@@ -264,6 +264,14 @@ class MapGraphTransformer(BaseModule):
         # batch_map_graph: list of polylines
         # batch, num_polylines * points * 2 (x, y)
         # onehot_category: batch, num_polylines * num_categories, onehot encoding of categories
+        """
+        Args:
+            map_graph: (batch, num_polylines * points * 2 (x, y))
+            onehot_category: (batch, num_polylines * num_categories)
+
+        Output:
+            batch_graph_feats: (batch, num_polylines, hidden_dim)
+        """
         # TODO: make batched
         batch_graph_feats = []
         for graph_polylines, onehot_cat in zip(map_graph, onehot_category):
@@ -277,10 +285,10 @@ class MapGraphTransformer(BaseModule):
                 graph_feat = torch.cat([graph_polylines.view(npolylines, npoints * pdim), onehot_cat], dim=-1)
 
             # embed features
-            graph_feat = self.map_embedding(graph_feat)  # num_polylines, dmodel
+            graph_feat = self.map_embedding(graph_feat)  # (num_polylines, dmodel)
 
             # transformer encoder
-            graph_feat = self.transformer_encoder(graph_feat.unsqueeze(self.batch_dim))  # 1, num_polylines, hidden_dim
-            # graph_feat = graph_feat.squeeze(self.batch_dim)  # num_polylines, hidden_dim
+            graph_feat = self.transformer_encoder(graph_feat.unsqueeze(self.batch_dim))  # (1, num_polylines, hidden_dim)
+            # graph_feat = graph_feat.squeeze(self.batch_dim)  # (num_polylines, hidden_dim)
             batch_graph_feats.append(graph_feat.squeeze(self.batch_dim))
         return batch_graph_feats

@@ -193,7 +193,7 @@ class BaselineMapGraph(MVXTwoStageDetector):
         # check for img_feats shape
 
         # get bev features of SD map raster
-        map_graph_feats = self.extract_map_feat(map_graph=map_graph, **kwargs)
+        map_graph_feats = self.extract_map_feat(map_graph=map_graph, **kwargs) # (batch, num_polylines, hidden_dim)
         bev_feats = self.bev_constructor(img_feats, img_metas, map_graph_feats=map_graph_feats, prev_bev=prev_bev)
         # bev_feats = self.bev_constructor(img_feats, img_metas, prev_bev)
 

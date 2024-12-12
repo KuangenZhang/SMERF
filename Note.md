@@ -1,0 +1,7 @@
+* [SMERF Config](mmdetection3d/projects/openlanev2/configs/baseline_large_ptsrep_smerf.py)
+* [Map Encoder](mmdetection3d/projects/openlanev2/baseline/models/modules/map_graph_encoder.py#L237)
+* [BEV Encoder](mmdetection3d/projects/openlanev2/baseline/models/modules/encoder.py#L27)
+* [Extract Map Feature](mmdetection3d/projects/openlanev2/baseline/models/detectors/baseline_large_map_graph.py#L196)
+* [Map Graph Shape](mmdetection3d/projects/openlanev2/baseline/models/modules/bevformer_constructer.py#L223)
+* [Map Cross Attention](mmdetection3d/projects/openlanev2/baseline/models/modules/encoder.py#L426)
+* [Map Cross Attention Layer](mmdetection3d/projects/openlanev2/baseline/models/modules/spatial_cross_attention.py#L295)

@@ -218,16 +218,18 @@ class BEVFormerConstructer(BaseModule):
             map_bev_level_start_index = None
         
         if map_graph_feats is not None:
+            # map_graph_feats (batch, num_polylines, hidden_dim)
             if isinstance(map_graph_feats, list):
-                # batch, num_polylines * feat_dim
+                # (batch, num_polylines)
                 map_graph_shapes = torch.tensor([mfeat.shape[0] for mfeat in map_graph_feats], 
                                                 device=map_graph_feats[0].device)
 
                 max_num_polylines = map_graph_shapes.max()
+                # padding zeros to features to keep the same size.
                 map_graph_feats = torch.stack([
                     torch.cat([mfeat, mfeat.new_zeros(max_num_polylines - mfeat.shape[0], 
                                                       mfeat.shape[1])], dim=0) for mfeat in map_graph_feats
-                ])  # batch, max_num_polylines, feat_dim
+                ])  # (batch, max_num_polylines, feat_dim)
             else:
                 raise NotImplementedError()
 
